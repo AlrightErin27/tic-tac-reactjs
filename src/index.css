@@ -1,0 +1,19 @@
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 60vw;
+  padding-top: 10rem;
+}
+.square {
+  height: 20vh;
+  width: 20vw;
+  outline: 1px solid rgba(0, 0, 0, 0.274);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
