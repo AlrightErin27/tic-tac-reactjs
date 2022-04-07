@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function App() {
+  const [playerX, setPlayerX] = useState(true);
+
+  let count = 0;
   let rowsArr = [
     ["", "", ""],
     ["", "", ""],
@@ -7,11 +12,25 @@ function App() {
 
   function handleClick(e) {
     e.preventDefault();
-    console.log(e.target.id, "Clicked!");
+
+    const sq = document.getElementById(e.target.id);
+
+    if (playerX && sq.innerText !== "X" && sq.innerText !== "O") {
+      setPlayerX(false);
+      sq.innerText = "X";
+    } else if (!playerX && sq.innerText !== "X" && sq.innerText !== "O") {
+      setPlayerX(true);
+      sq.innerText = "O";
+    }
+
+    console.log(playerX);
+    count++;
+    return count;
   }
 
   return (
-    <div id="app">
+    <div id="app" className="back">
+      <h1>Tic Tac React</h1>
       <div className="grid">
         <div className="row" id="row1">
           <div className="square" id="s1" onClick={(e) => handleClick(e)}>
@@ -49,6 +68,7 @@ function App() {
           </div>
         </div>
       </div>
+      <h3>{playerX ? "Player X's turn." : "Player O's turn"}</h3>
     </div>
   );
 }
