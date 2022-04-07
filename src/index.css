@@ -7,9 +7,6 @@
   flex-direction: column;
   align-items: center;
   font-family: "Calistoga", cursive;
-  /* font-family: 'Girassol', cursive;
-font-family: 'Palette Mosaic', cursive;
-font-family: 'Send Flowers', cursive; */
 }
 #app h1 {
   font-size: 4.5rem;
@@ -24,6 +21,7 @@ font-family: 'Send Flowers', cursive; */
   grid-template-columns: repeat(3, 1fr);
 }
 .square {
+  cursor: pointer;
   font-size: 10rem;
   height: 20vh;
   width: 13vw;
@@ -33,4 +31,30 @@ font-family: 'Send Flowers', cursive; */
   justify-content: center;
   margin: 1px;
   color: rgba(193, 114, 219, 0.552);
+}
+.square:hover {
+  background-color: rgba(184, 166, 214, 0.215);
+}
+.btn {
+  background-image: linear-gradient(
+    92.88deg,
+    #7045b56c 9.16%,
+    #9c43cc75 43.89%,
+    #a23fd778 64.72%
+  );
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  height: 4rem;
+  padding: 0 1.6rem;
+  margin: 2rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all 0.5s;
+  user-select: none;
+  font-family: "Calistoga", cursive;
+  font-size: 3rem;
 }
