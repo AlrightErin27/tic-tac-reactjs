@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [playerX, setPlayerX] = useState(true);
   const [count, setCount] = useState(9);
   const [isOver, setIsOver] = useState(false);
-
-  let rowsArr = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
-  ];
+  const [xArr, setXArr] = useState([]);
+  const [oArr, setOArr] = useState([]);
 
   function handleClick(e) {
     e.preventDefault();
-    const sq = document.getElementById(e.target.id);
+    const sId = e.target.id;
+    const sq = document.getElementById(sId);
 
     if (playerX && sq.innerText !== "X" && sq.innerText !== "O" && !isOver) {
       setPlayerX(false);
       sq.innerText = "X";
       setCount(count - 1);
+      setXArr([`${sId}`, ...xArr]);
     } else if (
       !playerX &&
       sq.innerText !== "X" &&
@@ -28,61 +26,100 @@ function App() {
       setPlayerX(true);
       sq.innerText = "O";
       setCount(count - 1);
+      setOArr([`${sId}`, ...oArr]);
     }
     checkIfOver();
   }
 
   function checkIfOver() {
-    // console.log(count);
     if (count === 1) {
       setIsOver(true);
+      setXArr([]);
+      setOArr([]);
+      alert("CATS GAME");
+    }
+  }
+  useEffect(() => {
+    const win1 = ["0", "1", "2"],
+      win2 = ["3", "4", "5"],
+      win3 = ["6", "7", "8"],
+      win4 = ["0", "3", "6"],
+      win5 = ["1", "4", "7"],
+      win6 = ["2", "5", "8"],
+      win7 = ["0", "4", "8"],
+      win8 = ["2", "4", "6"];
+
+    const checker = (arr, target) => target.every((v) => arr.includes(v));
+
+    if (
+      checker(xArr, win1) === true ||
+      checker(xArr, win2) === true ||
+      checker(xArr, win3) === true ||
+      checker(xArr, win4) === true ||
+      checker(xArr, win5) === true ||
+      checker(xArr, win6) === true ||
+      checker(xArr, win7) === true ||
+      checker(xArr, win8) === true
+    ) {
+      setIsOver(true);
+      alert("X WINS");
+      setXArr([]);
+      setOArr([]);
+    } else if (
+      checker(oArr, win1) ||
+      checker(oArr, win2) ||
+      checker(oArr, win3) ||
+      checker(oArr, win4) ||
+      checker(oArr, win5) ||
+      checker(oArr, win6) ||
+      checker(oArr, win7) ||
+      checker(oArr, win8)
+    ) {
+      setIsOver(true);
+      alert("O WINS");
+      setXArr([]);
+      setOArr([]);
+    }
+  }, [checkIfOver]);
+
+  function handleReset() {
+    setXArr([]);
+    setOArr([]);
+    setIsOver(false);
+    setPlayerX(true);
+    setCount(9);
+
+    for (let i = 0; i < 9; i++) {
+      let a = document.getElementById(i);
+      a.innerText = "";
     }
   }
 
-  function handleReset() {
-    console.log("Clicked reset.");
-    // setIsOver(false);
-    // setPlayerX(true);
-  }
-  console.log(isOver);
+  // console.log("xARR ❌", xArr);
+  // console.log("oARR 🅾️", oArr);
+  // console.log("Is it over?", isOver);
+  // console.log("Is it X's turn", playerX);
+
   return (
     <div id="app" className="back">
       <h1>Tic Tac React</h1>
       <div className="grid">
         <div className="row" id="row1">
-          <div className="square" id="s1" onClick={(e) => handleClick(e)}>
-            {rowsArr[0][0]}
-          </div>
-          <div className="square" id="s2" onClick={(e) => handleClick(e)}>
-            {rowsArr[0][1]}
-          </div>
-          <div className="square" id="s3" onClick={(e) => handleClick(e)}>
-            {rowsArr[0][2]}
-          </div>
+          <div className="square" id="0" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="1" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="2" onClick={(e) => handleClick(e)}></div>
         </div>
 
         <div className="row" id="row2">
-          <div className="square" id="s4" onClick={(e) => handleClick(e)}>
-            {rowsArr[1][0]}
-          </div>
-          <div className="square" id="s5" onClick={(e) => handleClick(e)}>
-            {rowsArr[1][1]}
-          </div>
-          <div className="square" id="s6" onClick={(e) => handleClick(e)}>
-            {rowsArr[1][2]}
-          </div>
+          <div className="square" id="3" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="4" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="5" onClick={(e) => handleClick(e)}></div>
         </div>
 
         <div className="row" id="row3">
-          <div className="square" id="s7" onClick={(e) => handleClick(e)}>
-            {rowsArr[2][0]}
-          </div>
-          <div className="square" id="s8" onClick={(e) => handleClick(e)}>
-            {rowsArr[2][1]}
-          </div>
-          <div className="square" id="s9" onClick={(e) => handleClick(e)}>
-            {rowsArr[2][2]}
-          </div>
+          <div className="square" id="6" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="7" onClick={(e) => handleClick(e)}></div>
+          <div className="square" id="8" onClick={(e) => handleClick(e)}></div>
         </div>
       </div>
       {!isOver ? (
